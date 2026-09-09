@@ -8,20 +8,20 @@ def main() :
     outputFileName = sys.argv[3]
     minSupport = minSupport / 100.0
 
-    # Read the input file and parse it into transactions
+
     transactions = []
     with open(inputFileName , 'r') as f:
         for line in f:
             transaction = list(map(int, line.strip().split()))
             transactions.append(transaction)
     
-    #Perform Apriori algorithm
+
     frequentItemsets = apriori(transactions, minSupport)
 
     # Generate associative rules from the frequent itemsets
     rules = generateRules(frequentItemsets)
 
-    # Write the associative rules to the output file
+
     with open(outputFileName, 'w') as f:
         for subsetA, subsetB, support, confidence in rules:
             A_str = '{' + ','.join(map(str, sorted(subsetA))) + '}'
@@ -33,7 +33,7 @@ def main() :
 
 def apriori(transactions, minSupport):
     frequentItemsets = {}
-    # Create and Compose the initial candidate C1 (Dictionary)
+
     C1 = {}
     L = {}
     prunedSet = set()
@@ -43,7 +43,7 @@ def apriori(transactions, minSupport):
                 C1[item] = 0
             C1[item] += 1
 
-    # Create and Compose the initial frequent patterns L
+
     for item, count in C1.items():
         if count / len(transactions) >= minSupport:
             L[frozenset([item])] = count / len(transactions)
@@ -66,7 +66,7 @@ def apriori(transactions, minSupport):
         # Reset Ck
         Ck = {}
         
-        # Create and Compose the candidate Ck by self-joining L
+
         for item1 in L.keys():
             for item2 in L.keys():
                 if item1 == item2:
@@ -88,7 +88,7 @@ def apriori(transactions, minSupport):
                 if candidate <= t_set:
                     Ck[candidate] += 1
         
-        # Create and Compose the frequent patterns Lk (Dictionary)
+
         L = {}
         newPrunedSet = set()
         for candidate, count in Ck.items():
@@ -115,7 +115,7 @@ def apriori(transactions, minSupport):
 def generateRules(frequentItemsets):
     rules = []
     
-    # Create and Compose the association rules(A -> B) from the frequent itemsets
+
     for itemset in frequentItemsets.keys():
 
         if len(itemset) < 2:
