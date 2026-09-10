@@ -1,6 +1,3 @@
-# 확인한 범위
+# 테스트와 실행 범위
 
-Apriori support 및 gain-ratio tree의 합성 예제 테스트 2개 통과. 원본 benchmark accuracy는 미측정입니다.
-
-재학습이나 새로운 봉인검증을 이 코드 정리 과정에서 수행하지 않았습니다. 작은 smoke test와 모델 일반화 성능은 별개입니다.
-
+합성 거래의 support와 작은 범주형 입력의 분류를 검사합니다. `python -m pytest tests -q`로 실행합니다. 실제 benchmark 정확도나 독립적인 일반화 평가와는 다릅니다.
